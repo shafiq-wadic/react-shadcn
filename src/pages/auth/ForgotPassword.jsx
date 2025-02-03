@@ -5,28 +5,20 @@ import { useToast } from "@/components/ui/use-toast";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-export default function SignIn() {
+export default function ForgotPassword() {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const { toast } = useToast();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Dummy authentication
-    if (email === "john@example.com" && password === "password") {
-      localStorage.setItem("isAuthenticated", "true");
+    // Dummy forgot password logic
+    if (email) {
       toast({
         title: "Success",
-        description: "You have successfully signed in",
+        description: "If an account exists with this email, you will receive a reset code.",
       });
-      navigate("/profile");
-    } else {
-      toast({
-        title: "Error",
-        description: "Invalid credentials. Try john@example.com / password",
-        variant: "destructive",
-      });
+      navigate("/auth/verify-otp");
     }
   };
 
@@ -34,9 +26,9 @@ export default function SignIn() {
     <div className="container flex h-screen w-screen flex-col items-center justify-center">
       <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
         <div className="flex flex-col space-y-2 text-center">
-          <h1 className="text-2xl font-semibold tracking-tight">Welcome back</h1>
+          <h1 className="text-2xl font-semibold tracking-tight">Forgot Password</h1>
           <p className="text-sm text-muted-foreground">
-            Enter your credentials to sign in
+            Enter your email to receive a reset code
           </p>
         </div>
 
@@ -52,33 +44,15 @@ export default function SignIn() {
               required
             />
           </div>
-          <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <Label htmlFor="password">Password</Label>
-              <Link 
-                to="/auth/forgot-password" 
-                className="text-sm text-primary hover:underline"
-              >
-                Forgot password?
-              </Link>
-            </div>
-            <Input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
           <Button type="submit" className="w-full">
-            Sign In
+            Send Reset Code
           </Button>
         </form>
 
         <div className="text-center text-sm">
-          Don't have an account?{" "}
-          <Link to="/auth/sign-up" className="underline">
-            Sign up
+          Remember your password?{" "}
+          <Link to="/auth/sign-in" className="underline">
+            Sign in
           </Link>
         </div>
       </div>
