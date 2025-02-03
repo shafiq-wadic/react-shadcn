@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Layout from "./components/Layout";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import SignIn from "./pages/auth/SignIn";
@@ -32,7 +33,9 @@ const App = () => (
             path="/profile"
             element={
               <ProtectedRoute>
-                <Profile />
+                <Layout>
+                  <Profile />
+                </Layout>
               </ProtectedRoute>
             }
           />
@@ -40,7 +43,9 @@ const App = () => (
             path="/profile/edit"
             element={
               <ProtectedRoute>
-                <EditProfile />
+                <Layout>
+                  <EditProfile />
+                </Layout>
               </ProtectedRoute>
             }
           />
@@ -48,7 +53,9 @@ const App = () => (
             path="/admin/dashboard"
             element={
               <ProtectedRoute>
-                <Dashboard />
+                <Layout>
+                  <Dashboard />
+                </Layout>
               </ProtectedRoute>
             }
           />

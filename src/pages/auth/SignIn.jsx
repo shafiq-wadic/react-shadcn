@@ -1,9 +1,9 @@
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
@@ -13,30 +13,30 @@ export default function SignIn() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Dummy authentication
+    // Dummy authentication logic
     if (email === "john@example.com" && password === "password") {
       localStorage.setItem("isAuthenticated", "true");
       toast({
         title: "Success",
-        description: "You have successfully signed in",
+        description: "Signed in successfully",
       });
-      navigate("/profile");
+      navigate("/admin/dashboard");
     } else {
       toast({
         title: "Error",
-        description: "Invalid credentials. Try john@example.com / password",
+        description: "Invalid credentials. Try john@example.com/password",
         variant: "destructive",
       });
     }
   };
 
   return (
-    <div className="container flex h-screen w-screen flex-col items-center justify-center">
-      <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
-        <div className="flex flex-col space-y-2 text-center">
-          <h1 className="text-2xl font-semibold tracking-tight">Welcome back</h1>
+    <div className="container flex min-h-screen items-center justify-center">
+      <div className="mx-auto w-full max-w-md space-y-6">
+        <div className="space-y-2 text-center">
+          <h1 className="text-2xl font-semibold tracking-tight">Sign In</h1>
           <p className="text-sm text-muted-foreground">
-            Enter your credentials to sign in
+            Enter your credentials to access your account
           </p>
         </div>
 
@@ -50,24 +50,18 @@ export default function SignIn() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              className="w-full"
             />
           </div>
           <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <Label htmlFor="password">Password</Label>
-              <Link 
-                to="/auth/forgot-password" 
-                className="text-sm text-primary hover:underline"
-              >
-                Forgot password?
-              </Link>
-            </div>
+            <Label htmlFor="password">Password</Label>
             <Input
               id="password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              className="w-full"
             />
           </div>
           <Button type="submit" className="w-full">
@@ -76,8 +70,14 @@ export default function SignIn() {
         </form>
 
         <div className="text-center text-sm">
+          <Link to="/auth/forgot-password" className="text-primary hover:underline">
+            Forgot password?
+          </Link>
+        </div>
+
+        <div className="text-center text-sm">
           Don't have an account?{" "}
-          <Link to="/auth/sign-up" className="underline">
+          <Link to="/auth/sign-up" className="text-primary hover:underline">
             Sign up
           </Link>
         </div>
