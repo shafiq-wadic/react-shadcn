@@ -3,20 +3,31 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { toast } = useToast();
+  const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Authentication logic will be implemented here
-    toast({
-      title: "Sign in attempted",
-      description: "Authentication will be implemented with Supabase",
-    });
+    // Dummy authentication
+    if (email === "john@example.com" && password === "password") {
+      localStorage.setItem("isAuthenticated", "true");
+      toast({
+        title: "Success",
+        description: "You have successfully signed in",
+      });
+      navigate("/profile");
+    } else {
+      toast({
+        title: "Error",
+        description: "Invalid credentials. Try john@example.com / password",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
